@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rotta dei Carpazi</title>
+<meta name="description" content="Itinerario Romania 1–5 ottobre 2026: Bucegi, Brașov, Transfăgărășan.">
+<meta name="theme-color" content="#1B241F">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Carpazi">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icons/favicon-32.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<style>
+  @font-face{font-family:"Plex Cond";src:url(fonts/plex-cond-600.woff2) format("woff2");font-weight:600;font-display:swap}
+  @font-face{font-family:"Plex Cond";src:url(fonts/plex-cond-700.woff2) format("woff2");font-weight:700;font-display:swap}
+  @font-face{font-family:"Plex Serif";src:url(fonts/plex-serif-400.woff2) format("woff2");font-weight:400;font-display:swap}
+  @font-face{font-family:"Plex Serif";src:url(fonts/plex-serif-600.woff2) format("woff2");font-weight:600;font-display:swap}
+  @font-face{font-family:"Plex Mono";src:url(fonts/plex-mono-400.woff2) format("woff2");font-weight:400;font-display:swap}
+  @font-face{font-family:"Plex Mono";src:url(fonts/plex-mono-600.woff2) format("woff2");font-weight:600;font-display:swap}
+
+  :root{
+    --paper:#EDEFE9; --surface:#F8F9F5; --sunk:#E3E7DE;
+    --ink:#1B241F; --muted:#5B6B63; --rule:#C7CFC5;
+    --accent:#B23C28; --ochre:#806127; --ok:#2F6B45;
+    --display:"Plex Cond","Arial Narrow",system-ui,sans-serif;
+    --body:"Plex Serif",Georgia,serif;
+    --mono:"Plex Mono",ui-monospace,Menlo,monospace;
+    color-scheme:light dark;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --paper:#0F1412; --surface:#171E1A; --sunk:#131A16;
+      --ink:#E2E8E0; --muted:#98A89E; --rule:#2C3630;
+      --accent:#E86A50; --ochre:#CFAB55; --ok:#6FBF8A;
+    }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55}
+  a{color:inherit}
+  a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:3px}
+  .wrap{max-width:640px;margin:0 auto;padding-inline:16px;padding-block:0 64px}
+
+  header.top{padding-block:calc(env(safe-area-inset-top) + 22px) 14px}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0}
+  h1{font-family:var(--display);font-weight:700;font-size:40px;line-height:.98;margin:6px 0 0;letter-spacing:-.01em}
+  .meta{font-family:var(--mono);font-size:12px;color:var(--muted);margin:10px 0 0;line-height:1.8}
+  .meta b{color:var(--ink);font-weight:600}
+
+  nav.days{position:sticky;top:0;z-index:10;background:var(--paper);margin-inline:-16px;padding:8px 16px;
+           padding-top:calc(env(safe-area-inset-top) + 8px);border-bottom:1px solid var(--rule);
+           display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+  nav.days::-webkit-scrollbar{display:none}
+  nav.days a{flex:none;text-decoration:none;font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.04em;
+             padding:7px 11px;border-radius:999px;border:1px solid var(--rule);background:var(--surface);color:var(--ink);white-space:nowrap}
+  nav.days a.today{background:var(--accent);border-color:var(--accent);color:#fff}
+
+  .todaybar{display:none;margin-top:14px;padding:12px 14px;border-radius:6px;background:var(--accent);color:#fff;
+            font-family:var(--mono);font-size:13px;text-decoration:none}
+  .todaybar.on{display:block}
+
+  section{scroll-margin-top:64px}
+  .block{margin-top:34px}
+  h2.sec{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 10px;font-weight:600}
+
+  .map{margin-top:18px;background:var(--surface);border:1px solid var(--rule);border-radius:6px;padding:6px 2px 2px}
+  .map svg{display:block;width:100%;height:auto}
+  .mp-line{stroke:var(--accent);stroke-width:2.4;fill:none;stroke-linejoin:round;stroke-linecap:round}
+  .mp-dot{fill:var(--paper);stroke:var(--muted);stroke-width:1.5}
+  .mp-key{fill:var(--accent)}
+  .mp-night{fill:var(--ink)}
+  .mp-lbl{fill:var(--ink);font-family:var(--mono);font-size:12px;paint-order:stroke fill;stroke:var(--surface);stroke-width:3.5px;stroke-linejoin:round}
+  .cap{font-family:var(--mono);font-size:10.5px;color:var(--muted);padding:4px 10px 6px}
+
+  table.sum{width:100%;border-collapse:collapse;font-size:14px;margin-top:16px}
+  .sum td{padding:9px 6px 9px 0;border-bottom:1px solid var(--rule);vertical-align:baseline}
+  .sum tr:last-child td{border-bottom:none}
+  .sum td.d{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--accent);text-transform:uppercase;white-space:nowrap}
+  .sum td.b{font-weight:600}
+  .sum td.num{font-family:var(--mono);font-size:12px;color:var(--muted);text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;padding-right:0}
+
+  .leg-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;border-bottom:2px solid var(--ink);padding-bottom:6px}
+  .day{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+  .leg-head h2{font-family:var(--display);font-weight:600;font-size:26px;line-height:1.1;margin:0;flex:1 1 100%}
+  .dist{font-family:var(--mono);font-size:12px;color:var(--muted)}
+
+  ul.tl{list-style:none;margin:0;padding:0}
+  .tl li{display:grid;grid-template-columns:52px 1fr;gap:12px;padding:11px 0;border-bottom:1px solid var(--rule)}
+  .tl li:last-child{border-bottom:none}
+  .tl .t{font-family:var(--mono);font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;padding-top:3px;line-height:1.35}
+  .tl li.move{background:var(--sunk);padding:8px 0;border-radius:4px}
+  .tl li.move .t{text-align:center;color:var(--accent);font-size:14px;padding-top:0}
+  .leg-txt{font-family:var(--mono);font-size:12px;color:var(--muted);line-height:1.6;padding-right:8px}
+  .leg-txt b{color:var(--ink);font-weight:600}
+  .n{font-family:var(--display);font-weight:600;font-size:19px;line-height:1.2;margin:0}
+  .n a{text-decoration:none;border-bottom:1px solid var(--rule)}
+  li.hi .n{color:var(--accent)}
+  .d{margin:3px 0 0;font-size:15px;color:var(--muted)}
+  .hrs{display:block;margin-top:4px;font-family:var(--mono);font-size:11.5px;color:var(--ochre)}
+  .warn{display:block;margin-top:5px;font-family:var(--mono);font-size:11.5px;color:var(--accent)}
+
+  .go{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:12px;min-height:46px;border-radius:8px;
+      background:var(--ink);color:var(--paper);text-decoration:none;font-family:var(--mono);font-size:13px;font-weight:600;letter-spacing:.04em}
+
+  .card{background:var(--surface);border:1px solid var(--rule);border-radius:6px;padding:14px 16px}
+  .card h3{font-family:var(--display);font-weight:600;font-size:20px;margin:0 0 6px}
+  .card p{margin:6px 0;font-size:15px}
+  .kv{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:8px 0 0;font-size:14.5px}
+  .kv dt{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+  .kv dd{margin:0}
+  .checks{margin:10px 0 0;padding-left:20px;font-size:15px}
+  .checks li{margin-bottom:5px}
+
+  .contacts{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+  .contacts li{background:var(--surface);border:1px solid var(--rule);border-radius:6px;padding:12px 14px}
+  .contacts .who{font-family:var(--display);font-weight:600;font-size:18px;margin:0}
+  .contacts .what{font-size:14px;color:var(--muted);margin:2px 0 8px}
+  .btns{display:flex;gap:8px;flex-wrap:wrap}
+  .btn{flex:1 1 120px;display:flex;align-items:center;justify-content:center;min-height:42px;border-radius:8px;text-decoration:none;
+       font-family:var(--mono);font-size:12.5px;font-weight:600;border:1px solid var(--rule);background:var(--paper)}
+  .btn.wa{background:var(--ok);border-color:var(--ok);color:#fff}
+  .tag{display:inline-block;font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+       padding:2px 7px;border-radius:999px;border:1px solid var(--accent);color:var(--accent);margin-left:6px;vertical-align:2px}
+
+  .bears{background:var(--sunk);border-left:3px solid var(--accent);border-radius:4px;padding:14px 16px}
+  .bears ul{margin:8px 0;padding-left:18px}
+  .bears p{margin:6px 0;font-size:15px}
+
+  footer{margin-top:40px;font-family:var(--mono);font-size:11px;color:var(--muted)}
+  #offline{display:none;font-family:var(--mono);font-size:11px;color:var(--ok);margin-top:6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <p class="eyebrow">Romania · 1–5 ottobre 2026</p>
+  <h1>Rotta dei Carpazi</h1>
+  <p class="meta">
+    <b>FR865</b> Bergamo → Otopeni gio 1 · 16:00–19:10<br>
+    <b>FR864</b> Otopeni → Bergamo lun 5 · 22:35–23:55<br>
+    Notti: Bucarest · Brașov ×2 · Cârțișoara
+  </p>
+  <p id="offline">● Salvato sul telefono: funziona anche senza rete</p>
+</header>
+
+<nav class="days" aria-label="Giorni">
+  <a href="#gio">Gio 1</a><a href="#ven">Ven 2</a><a href="#sab">Sab 3</a><a href="#dom">Dom 4</a><a href="#lun">Lun 5</a>
+  <a href="#auto">Auto</a><a href="#orsi">Orsi</a><a href="#strada">Strada</a><a href="#numeri">Numeri</a>
+</nav>
+
+<a class="todaybar" id="todaybar" href="#">Oggi →</a>
+
+<figure class="map" style="margin-inline:0">
+<svg viewBox="0 0 556 560" role="img" aria-label="Schema dell'anello da Otopeni ai Carpazi e ritorno">
+      <polyline class="mp-line" points="469.3,440.2 472.3,479.7 458.2,335.9 361.1,217.4 359.5,203.6 367.1,177.7 370.2,137.4 309.8,168.6 326.1,173.5 344.7,153.8 370.2,137.4 247.5,80.3 83.9,93.7 169.9,111.8 177.2,136.2 176.5,148.7 179.1,217.8 188.5,279.4 226.8,359.5 472.3,479.7 466.9,426.7 469.3,440.2"/>
+      <circle class="mp-key" cx="469.3" cy="440.2" r="4.5"/>
+      <text class="mp-lbl" x="460" y="444" text-anchor="end">Otopeni ✈</text>
+      <circle class="mp-dot" cx="466.9" cy="426.7" r="3"/>
+      <text class="mp-lbl" x="458" y="416" text-anchor="end">Therme</text>
+      <rect class="mp-night" x="468.3" y="475.7" width="8" height="8" transform="rotate(45 472.3 479.7)"/>
+      <text class="mp-lbl" x="461" y="484" text-anchor="end">Bucarest</text>
+      <circle class="mp-dot" cx="188.5" cy="279.4" r="3"/>
+      <text class="mp-lbl" x="198" y="283">Curtea de Argeș</text>
+      <circle class="mp-dot" cx="179.1" cy="217.8" r="3"/>
+      <text class="mp-lbl" x="189" y="222">Vidraru</text>
+      <circle class="mp-dot" cx="176.5" cy="148.7" r="3"/>
+      <circle class="mp-dot" cx="177.2" cy="136.2" r="3"/>
+      <text class="mp-lbl" x="187" y="152">Bâlea</text>
+      <rect class="mp-night" x="165.9" y="107.8" width="8" height="8" transform="rotate(45 169.9 111.8)"/>
+      <text class="mp-lbl" x="180" y="106">Cârțișoara</text>
+      <circle class="mp-dot" cx="83.9" cy="93.7" r="3"/>
+      <text class="mp-lbl" x="93" y="90">Sibiu</text>
+      <circle class="mp-dot" cx="247.5" cy="80.3" r="3"/>
+      <text class="mp-lbl" x="256" y="77">Făgăraș</text>
+      <rect class="mp-night" x="366.2" y="133.4" width="8" height="8" transform="rotate(45 370.2 137.4)"/>
+      <text class="mp-lbl" x="383" y="133">Brașov ×2</text>
+      <circle class="mp-dot" cx="309.8" cy="168.6" r="3"/>
+      <text class="mp-lbl" x="300" y="172" text-anchor="end">Zărnești</text>
+      <circle class="mp-dot" cx="326.1" cy="173.5" r="3"/>
+      <text class="mp-lbl" x="326" y="192" text-anchor="middle">Bran</text>
+      <circle class="mp-dot" cx="344.7" cy="153.8" r="3"/>
+      <text class="mp-lbl" x="335" y="148" text-anchor="end">Râșnov</text>
+      <circle class="mp-dot" cx="359.5" cy="203.6" r="3"/>
+      <text class="mp-lbl" x="369" y="201">Bucegi</text>
+      <circle class="mp-dot" cx="361.1" cy="217.4" r="3"/>
+      <text class="mp-lbl" x="371" y="222">Sinaia · Peleș</text>
+    </svg>
+  <figcaption class="cap">◆ notte · ● tappa · ✈ volo — schema, non scala stradale</figcaption>
+</figure>
+
+<table class="sum">
+  <tr><td class="d">Gio 1</td><td class="b">Bucarest</td><td class="num">20 km · 0h30</td></tr>
+  <tr><td class="d">Ven 2</td><td class="b">Brașov</td><td class="num">195 km · 3h15</td></tr>
+  <tr><td class="d">Sab 3</td><td class="b">Brașov</td><td class="num">90 km · 2h00</td></tr>
+  <tr><td class="d">Dom 4</td><td class="b">Cârțișoara</td><td class="num">203 km · 3h20</td></tr>
+  <tr><td class="d">Lun 5</td><td class="b">volo 22:35</td><td class="num">276 km · 5h00</td></tr>
+  <tr><td class="d">Totale</td><td class="b"></td><td class="num">~785 km</td></tr>
+</table>
+
+<!-- GIOVEDÌ -->
+<section id="gio" class="block">
+  <div class="leg-head"><span class="day">Gio 1 ott</span><span class="dist">20 km · 0h30</span><h2>Arrivo</h2></div>
+  <ul class="tl">
+    <li><span class="t">19:10</span><div><p class="n">Atterraggio a Otopeni</p><p class="d">Solo bagaglio a mano e volo Schengen: fuori in 25–30 minuti.</p></div></li>
+    <li class="hi"><span class="t">20:00</span><div><p class="n"><a href="https://www.google.com/maps/search/?api=1&amp;query=44.5711,26.0858">Ritiro auto Budget</a></p><p class="d">Banco nel terminal, livello 1, sul passaggio tra Arrivi e Partenze dopo il ritiro bagagli. Poi breve navetta o camminata fino al parcheggio.</p><span class="warn">Foto cruscotto (pieno + km) · controlla M+S sul fianco delle gomme</span></div></li>
+    <li class="move"><span class="t">↓</span><span class="leg-txt"><b>Otopeni → Bucarest centro</b> · 20 km · 30 min</span></li>
+    <li><span class="t">20:45</span><div><p class="n"><a href="https://www.google.com/maps/search/?api=1&amp;query=44.4310,26.1010">Centrul Vechi</a> — notte</p><p class="d">Cena e giro serale. Hotel con garage.</p></div></li>
+  </ul>
+  <a class="go" href="https://www.google.com/maps/dir/?api=1&amp;origin=44.5711,26.0858&amp;destination=44.4310,26.1010&amp;travelmode=driving">Naviga il giorno ↗</a>
+</section>
+
+<!-- VENERDÌ -->
+<section id="ven" class="block">
+  <div class="leg-head"><span class="day">Ven 2 ott</span><span class="dist">195 km · 3h15</span><h2>Bucegi e Peleș</h2></div>
+  <ul class="tl">
+    <li><span class="t">08:00</span><div><p class="n">Partenza da Bucarest</p></div></li>
+    <li class="move"><span class="t">↓</span><span class="leg-txt"><b>Bucarest → Bușteni</b> · 135 km · 2h00 · A3 poi DN1</span></li>
+    <li class="hi"><span class="t">10:00</span><div><p class="n"><a href="https://www.google.com/maps/search/?api=1&amp;query=45.4085,25.5347">Telecabina Bușteni</a></p><p class="d">Di venerdì la coda è corta.</p><span class="hrs">Lun, mer–ven 8:30–15:00 · ultima discesa 16:00 · chiusa il martedì</span></div></li>
+    <li><span class="t">10:30<br>13:30</span><div><p class="n">Plateau dei Bucegi — 2.200 m</p><p class="d">Babele e lo Sfinge. Giacca pesante: lassù fa molto più freddo che a valle.</p></div></li>
+    <li class="move"><span class="t">↓</span><span class="leg-txt"><b>Bușteni → Sinaia</b> · 10 km · 15 min</span></li>
+    <li class="hi"><span class="t">15:00<br>16:30</span><div><p class="n"><a href="https://www.google.com/maps/search/?api=1&amp;query=45.3597,25.5427">Castello di Peleș</a></p><p class="d">Slot prenotato online.</p><span class="hrs">Gio–dom 9:15–17:00 · ultimo ingresso 16:00 · chiuso lun e mar</span></div></li>
+    <li class="move"><span class="t">↓</span><span class="leg-txt"><b>Sinaia → Brașov</b> · 50 km · 1h00 · DN1 per Predeal</span></li>
+    <li><span class="t">17:30</span><div><p class="n"><a href="https://www.google.com/maps/search/?api=1&amp;query=45.6427,25.5887">Brașov</a> — 2 notti</p><p class="d">Sera in centro: Piața Sfatului, Strada Sforii.</p></div></li>
+  </ul>
+  <a class="go" href="https://www.google.com/maps/dir/?api=1&amp;origin=44.4310,26.1010&amp;destination=45.6427,25.5887&amp;waypoints=45.4085,25.5347%7C45.3597,25.5427&amp;travelmode=driving">Naviga il giorno ↗</a>
+</section>
+
+<!-- SABATO -->
+<section id="sab" class="block">
+  <div class="leg-head"><span class="day">Sab 3 ott</span><span class="dist">90 km · 2h00</span><h2>Piatra Craiului, castelli, orsi</h2></div>
+  <ul class="tl">
+    <li class="move"><span class="t">↓</span><span class="leg-txt"><b>Brașov → Zărnești</b> · 30 km · 40 min · partenza 8:30</span></li>
+    <li class="hi"><span class="t">09:15<br>11:45</span><div><p class="n"><a href="https://www.google.com/maps/search/?api=1&amp;query=45.5322,25.2856">Prăpăstiile Zărneștilor</a></p><p class="d">Parcheggio Fântâna lui Botorog, poi la gola a piedi. Scarpe chiuse.</p><span class="warn">Ultimo tratto: vai piano — la kasko non copre sterrati né sottoscocca</span></div></li>
+    <li class="move"><span class="t">↓</span><span class="leg-txt"><b>Zărnești → Bran</b> · 25 km · 35 min</span></li>
+    <li><span class="t">12:15<br>14:15</span><div><p class="n"><a href="https://www.google.com/maps/search/?api=1&amp;query=45.5149,25.3671">Castello di Bran</a></p><p class="d">Visita e pranzo. Bellissima rocca, ma con Vlad Țepeș non c'entra nulla.</p></div></li>
+    <li class="move"><span class="t">↓</span><span class="leg-txt"><b>Bran → Râșnov</b> · 15 km · 20 min</span></li>
+    <li><span class="t">14:35<br>15:30</span><div><p class="n"><a href="https://www.google.com/maps/search/?api=1&amp;query=45.5847,25.4608">Cittadella di Râșnov</a></p></div></li>
+    <li class="move"><span class="t">↓</span><span class="leg-txt"><b>Râșnov → ritrovo capanno</b> · 20–25 min (Brașov o Zărnești)</span></li>
+    <li class="hi"><span class="t">16:15<br>21:00</span><div><p class="n"><a href="#orsi">Capanno per gli orsi</a></p><p class="d">Tramonto alle 18:55. Si sta fermi e in silenzio un paio d'ore: vestiti pesante.</p><span class="warn">Ritrovo da confermare con l'operatore</span></div></li>
+    <li><span class="t">21:00</span><div><p class="n">Cena tardi a Brașov</p></div></li>
+  </ul>
+  <a class="go" href="https://www.google.com/maps/dir/?api=1&amp;origin=45.6427,25.5887&amp;destination=45.6427,25.5887&amp;waypoints=45.5322,25.2856%7C45.5149,25.3671%7C45.5847,25.4608&amp;travelmode=driving">Naviga il giorno ↗</a>
+</section>
+
+<!-- DOMENICA -->
+<section id="dom" class="block">
+  <div class="leg-head"><span class="day">Dom 4 ott</span><span class="dist">203 km · 3h20</span><h2>Brașov, Făgăraș, Sibiu</h2></div>
+  <ul class="tl">
+    <li><span class="t">09:00<br>11:15</span><div><p class="n"><a href="https://www.google.com/maps/search/?api=1&amp;query=45.6427,25.5887">Brașov con calma</a></p><p class="d">Biserica Neagră dentro, Tâmpa in funivia, Piața Sfatului, Porta Caterina.</p></div></li>
+    <li class="move"><span class="t">↓</span><span class="leg-txt"><b>Brașov → Făgăraș</b> · 65 km · 1h10 · DN1 · partenza 11:30</span></li>
+    <li><span class="t">12:40<br>13:40</span><div><p class="n"><a href="https://www.google.com/maps/search/?api=1&amp;query=45.8450,24.9730">Cetatea Făgăraș</a></p><p class="d">Un'ora più il pranzo. Se siete in ritardo, si salta.</p><span class="hrs">Ott–mar sab–dom 9:00–17:00 · ultimo ingresso 16:00 · 20 lei</span></div></li>
+    <li class="move"><span class="t">↓</span><span class="leg-txt"><b>Făgăraș → Sibiu</b> · 75 km · 1h15 · DN1</span></li>
+    <li class="hi"><span class="t">15:00<br>18:00</span><div><p class="n"><a href="https://www.google.com/maps/search/?api=1&amp;query=45.7975,24.1519">Sibiu</a></p><p class="d">Piața Mare, Piața Mică, Ponte delle Bugie. Parcheggia fuori dal centro, è quasi tutto pedonale.</p></div></li>
+    <li class="move"><span class="t">↓</span><span class="leg-txt"><b>Sibiu → Cârțișoara</b> · 63 km · 55 min · DN1 verso est</span></li>
+    <li><span class="t">19:00</span><div><p class="n"><a href="https://www.google.com/maps/search/?api=1&amp;query=45.7333,24.5833">Cârțișoara</a> — notte</p><p class="d">Cena prenotata in pensione. Sveglia alle 6:15.</p><span class="warn">Stasera: controlla lo stato del Transfăgărășan → <a href="#strada">Strada</a></span></div></li>
+  </ul>
+  <a class="go" href="https://www.google.com/maps/dir/?api=1&amp;origin=45.6427,25.5887&amp;destination=45.7333,24.5833&amp;waypoints=45.8450,24.9730%7C45.7975,24.1519&amp;travelmode=driving">Naviga il giorno ↗</a>
+</section>
+
+<!-- LUNEDÌ -->
+<section id="lun" class="block">
+  <div class="leg-head"><span class="day">Lun 5 ott</span><span class="dist">276 km · 5h00</span><h2>Il Transfăgărășan all'alba</h2></div>
+  <ul class="tl">
+    <li class="move"><span class="t">↓</span><span class="leg-txt"><b>Cârțișoara → Bâlea Cascadă</b> · 13 km · 25 min · partenza 6:30</span></li>
+    <li class="hi"><span class="t">07:00</span><div><p class="n"><a href="https://www.google.com/maps/search/?api=1&amp;query=45.6469,24.6203">La sbarra, km 104</a></p><p class="d">Bâlea Cascadă, 1.234 m. Il sole sorge alle 7:25.</p><span class="hrs">Aperta 7:00–21:00 · chiude per neve senza preavviso</span><span class="warn">Se ha nevicato di notte: lascia passare lo spazzaneve, parti un'ora dopo</span></div></li>
+    <li class="move"><span class="t">↓</span><span class="leg-txt"><b>I tornanti</b> · 13 km · 40 min · fermati a guardare indietro</span></li>
+    <li class="hi"><span class="t">07:45<br>09:15</span><div><p class="n"><a href="https://www.google.com/maps/search/?api=1&amp;query=45.6028,24.6167">Lago Bâlea — 2.034 m</a></p><p class="d">Arriva prima che salgano le nuvole da sud.</p></div></li>
+    <li class="move"><span class="t">↓</span><span class="leg-txt"><b>Bâlea → tunnel → Piscu Negru → Vidraru</b> · 60 km · 1h45 · discesa lunga: cambio in M/S, freno motore</span></li>
+    <li><span class="t">11:00<br>12:30</span><div><p class="n"><a href="https://www.google.com/maps/search/?api=1&amp;query=45.3583,24.6294">Lago e diga di Vidraru</a></p><p class="d">Pranzo sull'acqua.</p><span class="warn">Zona orsi: qui un motociclista è stato ucciso mentre fotografava un'orsa. Resta in auto.</span></div></li>
+    <li class="move"><span class="t">↓</span><span class="leg-txt"><b>Vidraru → Curtea de Argeș</b> · 30 km · 45 min</span></li>
+    <li><span class="t">13:15<br>14:00</span><div><p class="n"><a href="https://www.google.com/maps/search/?api=1&amp;query=45.1400,24.6767">Monastero di Curtea de Argeș</a></p><p class="d">Sepolcro dei re di Romania. Facoltativo.</p></div></li>
+    <li class="move"><span class="t">↓</span><span class="leg-txt"><b>Curtea de Argeș → Bucarest</b> · 150 km · 2h00 · Pitești, poi A1</span></li>
+    <li class="hi"><span class="t">16:00<br>19:30</span><div><p class="n"><a href="https://www.google.com/maps/search/?api=1&amp;query=44.6186,26.0736">Therme București</a></p><p class="d">Esci alle 19:30 in punto.</p></div></li>
+    <li class="move"><span class="t">↓</span><span class="leg-txt"><b>Therme → OMV Str. Ocna Sibiului 53</b> · pieno fino allo scatto · tieni lo scontrino</span></li>
+    <li class="hi"><span class="t">20:00</span><div><p class="n"><a href="https://www.google.com/maps/search/?api=1&amp;query=44.5723342,26.0696372">Riconsegna Budget</a></p><p class="d">Calea Bucureștilor 291B. Controllo dell'auto con loro, poi transfer al terminal.</p><span class="warn">Tolleranza 29 min: dopo le 20:29 possono addebitare un giorno</span></div></li>
+    <li><span class="t">22:35</span><div><p class="n">FR864 → Bergamo</p><p class="d">Gate chiude alle 22:05. Arrivo 23:55.</p></div></li>
+  </ul>
+  <a class="go" href="https://www.google.com/maps/dir/?api=1&amp;origin=45.7333,24.5833&amp;destination=44.5723342,26.0696372&amp;waypoints=45.6028,24.6167%7C45.3583,24.6294%7C45.1400,24.6767%7C44.6186,26.0736%7C44.5671018,26.0701838&amp;travelmode=driving">Naviga il giorno ↗</a>
+</section>
+
+<!-- AUTO -->
+<section id="auto" class="block">
+  <h2 class="sec">Auto</h2>
+  <div class="card">
+    <h3>Budget · VW Taigo o simile, automatica</h3>
+    <dl class="kv">
+      <dt>Ritiro</dt><dd>Gio 1 ott, 20:00 · banco nel terminal</dd>
+      <dt>Riconsegna</dt><dd>Lun 5 ott, 20:00 · Calea Bucureștilor 291B</dd>
+      <dt>Stazione</dt><dd><a href="tel:+40722636591">+40 722 636 591</a></dd>
+      <dt>Franchigia</dt><dd>1.500 € · deposito ~1.500 € sulla carta</dd>
+      <dt>Km</dt><dd>Illimitati · carburante pieno/pieno</dd>
+      <dt>2° guidatore</dt><dd>28,02 € per tutto il noleggio</dd>
+    </dl>
+    <ul class="checks">
+      <li><b>Carta di credito</b> personale del guidatore — niente debito, Revolut, N26, Wise</li>
+      <li><b>Patente fisica</b>, non quella sull'app · documento · voucher</li>
+      <li><b>Gomme M+S</b> sul fianco: obbligatorie con neve o ghiaccio</li>
+      <li>Non coperti: vetri, gomme, cerchi, sottoscocca, danni su sterrato</li>
+      <li>Foto e video dell'auto al ritiro e alla riconsegna</li>
+    </ul>
+    <a class="go" href="https://www.google.com/maps/search/?api=1&amp;query=44.5671018,26.0701838">Distributore OMV prima della riconsegna ↗</a>
+  </div>
+</section>
+
+<!-- ORSI -->
+<section id="orsi" class="block">
+  <h2 class="sec">Capanno orsi · sab 3 ott</h2>
+  <ul class="contacts">
+    <li><p class="who">Absolute Carpathian <span class="tag">Zărnești</span></p><p class="what">Capanno proprio, stagione fino a novembre.</p>
+      <div class="btns"><a class="btn wa" href="https://wa.me/40788578796">WhatsApp</a><a class="btn" href="tel:+40788578796">Chiama</a></div></li>
+    <li><p class="who">Active Travel <span class="tag">Brașov</span></p><p class="what">Ritrovo Bulevardul Eroilor 33-35. Il sito indica stagione aprile–settembre: da confermare.</p>
+      <div class="btns"><a class="btn wa" href="https://wa.me/40728804952">WhatsApp</a><a class="btn" href="tel:+40728804952">Chiama</a></div></li>
+    <li><p class="who">eTours <span class="tag">Brașov</span></p><p class="what">Capanno del parco nazionale, pickup possibile.</p>
+      <div class="btns"><a class="btn wa" href="https://wa.me/40721817452">WhatsApp</a><a class="btn" href="tel:+40721817452">Chiama</a></div></li>
+    <li><p class="who">Welcome to Transylvania <span class="tag">Brașov</span></p><p class="what">Partenza 16:00, rimborso se non vedi orsi.</p>
+      <div class="btns"><a class="btn wa" href="https://wa.me/40769352663">WhatsApp</a><a class="btn" href="tel:+40769352663">Chiama</a></div></li>
+    <li><p class="who">Neotour <span class="tag">Brașov</span></p><p class="what">Chiedere un capanno vicino a Brașov, non Tușnad.</p>
+      <div class="btns"><a class="btn wa" href="https://wa.me/40773823466">WhatsApp</a><a class="btn" href="tel:+40773823466">Chiama</a></div></li>
+    <li><p class="who">natureguide.ro <span class="tag">Piano B dom</span></p><p class="what">Appostamento serale zona Cârța, vicino a Cârțișoara.</p>
+      <div class="btns"><a class="btn wa" href="https://wa.me/40752453614">WhatsApp</a><a class="btn" href="tel:+40752453614">Chiama</a></div></li>
+  </ul>
+  <div class="bears block" style="margin-top:14px">
+    <p><b>Gli orsi per strada</b> — soprattutto sul Transfăgărășan e a Bușteni e Predeal la sera.</p>
+    <ul>
+      <li>Non scendere dall'auto.</li>
+      <li>Non dare da mangiare, per nessun motivo.</li>
+      <li>Non fermarti in mezzo alla carreggiata per la foto.</li>
+    </ul>
+    <p>Chi dà da mangiare agli orsi rischia multe fino a decine di migliaia di lei.</p>
+  </div>
+</section>
+
+<!-- STRADA -->
+<section id="strada" class="block">
+  <h2 class="sec">Transfăgărășan</h2>
+  <div class="card">
+    <p>Tratto regolamentato: <b>km 104 Bâlea Cascadă → km 130+800 Piscu Negru</b>, aperto 7:00–21:00. La chiusura stagionale può partire dal 20 ottobre, ma per neve la chiudono anche prima.</p>
+    <div class="btns" style="margin-top:10px">
+      <a class="btn" href="https://www.itinerant.ro/info/stare-traseu-transfagarasan">Stato strada</a>
+      <a class="btn" href="https://www.cnadnr.ro">CNAIR</a>
+      <a class="btn" href="https://www.transfagarasan.travel/">Meteo e info</a>
+    </div>
+    <p style="margin-top:14px"><b>Se lunedì è chiusa:</b> da Cârțișoara verso ovest a Sibiu (50 min), poi A1 fino a Bucarest (~3h). Il volo non è in discussione.</p>
+  </div>
+</section>
+
+<!-- NUMERI -->
+<section id="numeri" class="block">
+  <h2 class="sec">Numeri utili</h2>
+  <ul class="contacts">
+    <li><p class="who">Emergenze</p><div class="btns"><a class="btn" href="tel:112">112</a></div></li>
+    <li><p class="who">Budget Otopeni</p><div class="btns"><a class="btn" href="tel:+40722636591">+40 722 636 591</a></div></li>
+  </ul>
+  <div class="btns" style="margin-top:12px">
+    <a class="btn" href="https://bilete.peles.ro">Biglietti Peleș</a>
+    <a class="btn" href="https://www.teleferic.ro/program/">Orari funivia</a>
+  </div>
+</section>
+
+<footer>Aggiornato il 28 settembre 2026 · orari e condizioni da riverificare la settimana prima</footer>
+</div>
+
+<script>
+(function(){
+  var days={"2026-10-01":"gio","2026-10-02":"ven","2026-10-03":"sab","2026-10-04":"dom","2026-10-05":"lun"};
+  var names={gio:"giovedì 1",ven:"venerdì 2",sab:"sabato 3",dom:"domenica 4",lun:"lunedì 5"};
+  var d=new Date(), k=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+  var id=days[k];
+  if(id){
+    var chip=document.querySelector('nav.days a[href="#'+id+'"]'); if(chip){chip.classList.add("today");}
+    var bar=document.getElementById("todaybar"); bar.href="#"+id; bar.textContent="Oggi è "+names[id]+" → vai al programma"; bar.classList.add("on");
+  }
+  if("serviceWorker" in navigator){
+    navigator.serviceWorker.register("sw.js").then(function(){
+      return navigator.serviceWorker.ready;
+    }).then(function(){ document.getElementById("offline").style.display="block"; }).catch(function(){});
+  }
+})();
+</script>
+</body>
+</html>
